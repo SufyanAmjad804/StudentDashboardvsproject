@@ -10,5 +10,12 @@ public class AppDbContext : DbContext
         public DbSet<Student> Students => Set<Student>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
+    public DbSet<AttendanceRecord> AttendanceRecords => Set<AttendanceRecord>();
+    public DbSet<GradeRecord> GradeRecords => Set<GradeRecord>();
+    public DbSet<AssignmentItem> Assignments => Set<AssignmentItem>();
+    public DbSet<FeeInvoice> FeeInvoices => Set<FeeInvoice>();
+    public DbSet<NotificationItem> Notifications => Set<NotificationItem>();
+    public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
+    public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
 }
 }
