@@ -18,4 +18,16 @@ public class AppDbContext : DbContext
     public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
     public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
 }
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Student>()
+            .HasIndex(student => student.StudentNumber)
+            .IsUnique();
+
+        modelBuilder.Entity<Course>()
+            .HasIndex(course => course.Code)
+            .IsUnique();
+    }
 }
