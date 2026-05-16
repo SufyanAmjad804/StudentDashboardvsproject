@@ -1,3 +1,6 @@
+// ==================== COMMIT 1 ====================
+// Commit Message: "feat: Add AppDbContext class with base DbContext setup"
+// Sirf yeh file banao aur commit karo
 using Microsoft.EntityFrameworkCore;
 using StudentDashboard.Web.Models;
 
@@ -8,10 +11,21 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
+    // ==================== COMMIT 1 END - AB COMMIT KARO ====================
 
+
+    // ==================== COMMIT 2 ====================
+    // Commit Message: "feat: Add Students, Courses and Enrollments DbSets"
+    // Yeh 3 lines add karo aur commit karo
     public DbSet<Student> Students => Set<Student>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
+    // ==================== COMMIT 2 END - AB COMMIT KARO ====================
+
+
+    // ==================== COMMIT 3 ====================
+    // Commit Message: "feat: Add remaining DbSets for all entities"
+    // Yeh sari lines add karo aur commit karo
     public DbSet<AttendanceRecord> AttendanceRecords => Set<AttendanceRecord>();
     public DbSet<GradeRecord> GradeRecords => Set<GradeRecord>();
     public DbSet<AssignmentItem> Assignments => Set<AssignmentItem>();
@@ -19,7 +33,12 @@ public class AppDbContext : DbContext
     public DbSet<NotificationItem> Notifications => Set<NotificationItem>();
     public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
     public DbSet<CalendarEvent> CalendarEvents => Set<CalendarEvent>();
+    // ==================== COMMIT 3 END - AB COMMIT KARO ====================
 
+
+    // ==================== COMMIT 4 ====================
+    // Commit Message: "feat: Add unique indexes for Student and Course"
+    // Yeh method add karo aur commit karo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -31,7 +50,12 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Course>()
             .HasIndex(course => course.Code)
             .IsUnique();
+        // ==================== COMMIT 4 END - AB COMMIT KARO ====================
 
+
+        // ==================== COMMIT 5 ====================
+        // Commit Message: "feat: Configure Enrollment relationships and foreign keys"
+        // Yeh add karo aur commit karo
         modelBuilder.Entity<Enrollment>()
             .HasIndex(enrollment => new { enrollment.StudentId, enrollment.CourseId })
             .IsUnique();
@@ -47,29 +71,28 @@ public class AppDbContext : DbContext
             .WithMany(course => course.Enrollments)
             .HasForeignKey(enrollment => enrollment.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
+        // ==================== COMMIT 5 END - AB COMMIT KARO ====================
 
-        modelBuilder.Entity<AttendanceRecord>()
-            .HasOne(attendance => attendance.Student)
-            .WithMany(student => student.AttendanceRecords)
-            .HasForeignKey(attendance => attendance.StudentId)
+
+        // ==================== COMMIT 5 ====================
+        // Commit Message: "feat: Configure Enrollment relationships and foreign keys"
+        // Yeh add karo aur commit karo
+        modelBuilder.Entity<Enrollment>()
+            .HasIndex(enrollment => new { enrollment.StudentId, enrollment.CourseId })
+            .IsUnique();
+
+        modelBuilder.Entity<Enrollment>()
+            .HasOne(enrollment => enrollment.Student)
+            .WithMany(student => student.Enrollments)
+            .HasForeignKey(enrollment => enrollment.StudentId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<GradeRecord>()
-            .HasOne(grade => grade.Student)
-            .WithMany(student => student.GradeRecords)
-            .HasForeignKey(grade => grade.StudentId)
+        modelBuilder.Entity<Enrollment>()
+            .HasOne(enrollment => enrollment.Course)
+            .WithMany(course => course.Enrollments)
+            .HasForeignKey(enrollment => enrollment.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<FeeInvoice>()
-            .HasOne(invoice => invoice.Student)
-            .WithMany(student => student.FeeInvoices)
-            .HasForeignKey(invoice => invoice.StudentId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<AssignmentItem>()
-            .HasOne(assignment => assignment.Course)
-            .WithMany(course => course.Assignments)
-            .HasForeignKey(assignment => assignment.CourseId)
-            .OnDelete(DeleteBehavior.Cascade);
+        // ==================== COMMIT 5 END - AB COMMIT KARO ====================
     }
 }
+// ==================== COMMIT 6 END - APPDBCONTEXT COMPLETE ✅ ====================
